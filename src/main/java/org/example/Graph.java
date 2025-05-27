@@ -1,7 +1,20 @@
+/*
 package org.example; // 指定该类的包名为 org.example
 
 import java.util.*; // 导入 Java 中常用的工具类，如 Map、HashMap、Set、HashSet 等
+*/
+package org.example;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Collections;
+
+/**
+ * 有向图实现类，用于表示和处理有向图结构.
+ * 使用邻接表存储图结构，支持动态添加节点和边，并提供各种图操作功能.
+ */
 public class Graph { // 定义一个公共类 Graph，用于表示有向图
 
     // 定义一个邻接表（adjacency list），用来存储图的结构。
@@ -33,6 +46,13 @@ public class Graph { // 定义一个公共类 Graph，用于表示有向图
     public Map<String, Map<String, Integer>> getAdjList() {
         return adjList;
     }
+    /*public Map<String, Map<String, Integer>> getAdjList() {
+        Map<String, Map<String, Integer>> copy = new HashMap<>();
+        for (Map.Entry<String, Map<String, Integer>> entry : adjList.entrySet()) {
+            copy.put(entry.getKey(), new HashMap<>(entry.getValue())); // 深拷贝内层 Map
+        }
+        return copy;
+    }*/
 
     /**
      * 获取图中的所有节点（不只是起点，还包括终点）
@@ -57,6 +77,10 @@ public class Graph { // 定义一个公共类 Graph，用于表示有向图
     public Map<String, Integer> getNeighbors(String node) {
         return adjList.getOrDefault(node.toLowerCase(), new HashMap<>());
     }
+    /*public Map<String, Integer> getNeighbors(String node) {
+        Map<String, Integer> neighbors = adjList.getOrDefault(node.toLowerCase(), new HashMap<>());
+        return new HashMap<>(neighbors); // 返回副本
+    }*/
 
     /**
      * 获取两个节点之间的边的权重
@@ -75,19 +99,14 @@ public class Graph { // 定义一个公共类 Graph，用于表示有向图
      */
     public boolean containsNode(String word) {
         word = word.toLowerCase();
-
-        // 起点中是否包含
         if (adjList.containsKey(word)) {
             return true;
         }
-
-        // 在终点中是否出现过
         for (Map<String, Integer> neighbors : adjList.values()) {
             if (neighbors.containsKey(word)) {
                 return true;
             }
         }
-
         return false;
     }
 }

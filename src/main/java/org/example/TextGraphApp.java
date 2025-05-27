@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class TextGraphApp {
-    private static final Graph graph = new Graph();
+    static final Graph graph = new Graph();
 
     private static List<String> corpusWords = new ArrayList<>();
     private static final double DAMPING_FACTOR = 0.85;
@@ -486,4 +486,10 @@ public class TextGraphApp {
             System.err.println("生成图像失败：" + e.getMessage());
         }
     }
+    // 添加到 TextGraphApp.java 的类中
+    public static void resetGraph() {
+        graph.getAdjList().clear();
+        corpusWords.clear();
+    }
+
 }
